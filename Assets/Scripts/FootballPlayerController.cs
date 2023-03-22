@@ -9,11 +9,19 @@ public class FootballPlayerController : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
+    private float maxSpeed;
+    [SerializeField]
     private float jumpForce;
     private float movementInput;
 
     private bool canJump = true;
     private bool isGrounded = false;
+
+    [SerializeField]
+    private Collider2D feetCollider;
+    [SerializeField]
+    private Collider2D headCollider;
+
 
     [Header("Raycast Var")]
     [SerializeField]
@@ -23,11 +31,13 @@ public class FootballPlayerController : MonoBehaviour
 
     private Rigidbody2D rb2d;
     private CapsuleCollider2D capsuleCollider;
+    private Animator animator;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+        animator = GetComponent<Animator>();
     }
 
 
@@ -36,23 +46,46 @@ public class FootballPlayerController : MonoBehaviour
     void Update()
     {
         movementInput = Input.GetAxisRaw("Horizontal");
-
+        rb2d.AddForce(Vector2.right * speed * movementInput * Time.deltaTime, ForceMode2D.Force);
+        rb2d.velocity = new Vector2(Mathf.Clamp(rb2d.velocity.x, -maxSpeed, maxSpeed), rb2d.velocity.y);
         if (Input.GetButtonDown("Jump") && canJump)
         {
             Jump();
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Kick();
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            HeadButt();
+        }
+
+
     }
 
 
     private void FixedUpdate()
     {
-        rb2d.AddForce(Vector2.right * speed * movementInput * Time.fixedDeltaTime, ForceMode2D.Force);
     }
+
 
     private void Jump()
     {
         rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         canJump = false;
+    }
+
+    private void Kick()
+    {
+        animator.SetTrigger("Kick");
+    }
+
+    private void HeadButt()
+    {
+        animator.SetTrigger("HeadButt");
     }
 
     private void CheckIfGrounded()
@@ -115,9 +148,28 @@ public class FootballPlayerController : MonoBehaviour
         return _hit[0];
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+
+    public void EnableHeadColl()
     {
-        if (collision.CompareTag("Floor"))
+        headCollider.enabled = true;
+    }
+    public void DisableHeadColl()
+    {
+        headCollider.enabled = false;
+    }
+    public void EnableFeetColl()
+    {
+        feetCollider.enabled = true;
+    }
+    public void DisableFeetColl()
+    {
+        feetCollider.enabled = false;
+    }
+
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
         {
             CheckIfGrounded();
         }
