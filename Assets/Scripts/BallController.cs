@@ -24,16 +24,14 @@ public class BallController : MonoBehaviour
             Vector2 dir = transform.position - collision.transform.parent.position;
             dir = dir.normalized * headButtForce + Vector2.down * headButtForce;
             rb2d.velocity = dir;
-            rb2d.AddForce(dir.normalized, ForceMode2D.Impulse);
             Debug.Log("Toca la cabeza");
         }
 
         if (collision.CompareTag("Feet"))
         {
             Vector2 dir = transform.position - collision.transform.parent.position;
-            dir = dir.normalized * kickForce + Vector2.up * kickForce;
+            dir = dir.normalized * kickForce + Vector2.up * kickForce / 20;
             rb2d.velocity = dir;
-            rb2d.AddForce(dir.normalized, ForceMode2D.Impulse);
             Debug.Log("Toca el pie");
 
         }

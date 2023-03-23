@@ -12,10 +12,9 @@ public class FootballEntityController : MonoBehaviour
     private float maxSpeed;
     [SerializeField]
     private float jumpForce;
-    private float movementInput;
 
-    private bool canJump = true;
-    private bool isGrounded = false;
+    protected bool canJump = true;
+    protected bool isGrounded = false;
 
     [SerializeField]
     private Collider2D feetCollider;
@@ -45,50 +44,34 @@ public class FootballEntityController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movementInput = Input.GetAxisRaw("Horizontal");
-        MoveFootballPlayer(movementInput);
-        if (Input.GetButtonDown("Jump") && canJump)
-        {
-            Jump();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Kick();
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            HeadButt();
-        }
 
 
     }
 
-    private void MoveFootballPlayer(float _movementDir)
+    protected void MoveFootballPlayer(float _movementDir)
     {
         rb2d.AddForce(Vector2.right * speed * _movementDir * Time.deltaTime, ForceMode2D.Force);
         rb2d.velocity = new Vector2(Mathf.Clamp(rb2d.velocity.x, -maxSpeed, maxSpeed), rb2d.velocity.y);
 
     }
 
-    private void Jump()
+    protected void Jump()
     {
         rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         canJump = false;
     }
 
-    private void Kick()
+    protected void Kick()
     {
         animator.SetTrigger("Kick");
     }
 
-    private void HeadButt()
+    protected void HeadButt()
     {
         animator.SetTrigger("HeadButt");
     }
 
-    private void CheckIfGrounded()
+    protected void CheckIfGrounded()
     {
         bool _actuallyGrounded = false;
         //Variable para poner el punto de aparicion de los raycast, asi queda mas limpio el codigo
@@ -136,7 +119,7 @@ public class FootballEntityController : MonoBehaviour
     
 }
 
-    private RaycastHit2D DoRaycast(Vector2 _pos, Vector2 _dir, float _distance, LayerMask _layer)
+    protected RaycastHit2D DoRaycast(Vector2 _pos, Vector2 _dir, float _distance, LayerMask _layer)
     {
         // Esta funcion es para simplificar el hacer un raycast que da un palo que flipas loquete ;)
         RaycastHit2D[] _hit = new RaycastHit2D[1];

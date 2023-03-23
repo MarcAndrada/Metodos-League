@@ -433,7 +433,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.9649036, y: 0.40770626}
@@ -565,9 +565,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0.1
+  m_LinearDrag: 0.3
   m_AngularDrag: 0.05
-  m_GravityScale: 4.5
+  m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: d474a9404edcb5c419a7dd2cbf88289b, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -682,8 +682,8 @@ GameObject:
   - component: {fileID: 820205576}
   - component: {fileID: 820205579}
   - component: {fileID: 820205578}
-  - component: {fileID: 820205577}
   - component: {fileID: 820205580}
+  - component: {fileID: 820205581}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -709,27 +709,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &820205577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 820205575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e47a1ea0e55d985448d906a4d16b3a9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3000
-  maxSpeed: 8
-  jumpForce: 13
-  feetCollider: {fileID: 2130059719}
-  headCollider: {fileID: 436872725}
-  checkFloorRange: 0.25
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!70 &820205578
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -787,6 +766,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &820205581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820205575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87503e0035c21aa4f954af2a0d477dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3000
+  maxSpeed: 8
+  jumpForce: 13
+  feetCollider: {fileID: 2130059719}
+  headCollider: {fileID: 436872725}
+  checkFloorRange: 0.25
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1358150003
 GameObject:
   m_ObjectHideFlags: 0
