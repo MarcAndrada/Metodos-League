@@ -5,59 +5,33 @@ using UnityEngine;
 
 public class FootballEntityController : MonoBehaviour
 {
-    [Header("Movement Var")]
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float maxSpeed;
-    [SerializeField]
-    private float jumpForce;
+
+    public FootballEntityDefaultStats footballEntityValues;
 
     protected bool canJump = true;
     protected bool isGrounded = false;
 
-    [SerializeField]
-    private Collider2D feetCollider;
-    [SerializeField]
-    private Collider2D headCollider;
-
-
-    [Header("Raycast Var")]
-    [SerializeField]
-    private float checkFloorRange;
-    [SerializeField]
-    private LayerMask floorLayer;
-
     private Rigidbody2D rb2d;
-    private CapsuleCollider2D capsuleCollider;
     private Animator animator;
+    protected EntityCollisionsManager collisionsManager;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
-    }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
+        collisionsManager = GetComponent<EntityCollisionsManager>();
     }
 
     protected void MoveFootballPlayer(float _movementDir)
     {
-        rb2d.AddForce(Vector2.right * speed * _movementDir * Time.deltaTime, ForceMode2D.Force);
-        rb2d.velocity = new Vector2(Mathf.Clamp(rb2d.velocity.x, -maxSpeed, maxSpeed), rb2d.velocity.y);
+        rb2d.AddForce(Vector2.right * footballEntityValues.speed * _movementDir * Time.deltaTime, ForceMode2D.Force);
+        rb2d.velocity = new Vector2(Mathf.Clamp(rb2d.velocity.x, -footballEntityValues.maxSpeed, footballEntityValues.maxSpeed), rb2d.velocity.y);
 
     }
 
     protected void Jump()
     {
-        rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        rb2d.AddForce(Vector2.up * footballEntityValues.jumpForce, ForceMode2D.Impulse);
         canJump = false;
     }
 
@@ -77,11 +51,11 @@ public class FootballEntityController : MonoBehaviour
         //Variable para poner el punto de aparicion de los raycast, asi queda mas limpio el codigo
         Vector3 spawnPosRay;
         //Creamos una variable para el offset hacia arriba debido a que sin el hay problemas con la deteccion del suelo cuando esta muy cerca
-        Vector3 posOffset = Vector3.up * checkFloorRange / 2;
+        Vector3 posOffset = Vector3.up * footballEntityValues.checkFloorRange / 2;
 
         //Hacemos un raycast a los pies del player desde el punto central
-        spawnPosRay = transform.position - new Vector3(0, capsuleCollider.size.y / 2) + posOffset;
-        RaycastHit2D hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange, floorLayer);
+        spawnPosRay = transform.position - new Vector3(0, collisionsManager.physicalCollision.size.y / 2) + posOffset;
+        RaycastHit2D hit = DoRaycast(spawnPosRay, Vector2.down, footballEntityValues.checkFloorRange, footballEntityValues.floorLayer);
         if (hit)
         {
             _actuallyGrounded = true;
@@ -89,8 +63,8 @@ public class FootballEntityController : MonoBehaviour
         else
         {
             //Si no choca lo lanzamos de uno de los lados (en este caso el de la izquierda)
-            spawnPosRay = transform.position - new Vector3(-capsuleCollider.size.x / 2, capsuleCollider.size.y / 2) + posOffset;
-            hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange, floorLayer);
+            spawnPosRay = transform.position - new Vector3(-collisionsManager.physicalCollision.size.x / 2, collisionsManager.physicalCollision.size.y / 2) + posOffset;
+            hit = DoRaycast(spawnPosRay, Vector2.down, footballEntityValues.checkFloorRange, footballEntityValues.floorLayer);
             if (hit)
             {
                 _actuallyGrounded = true;
@@ -98,8 +72,8 @@ public class FootballEntityController : MonoBehaviour
             else
             {
                 //Y para acabar si no ha detectado suelo en la izquierda lo lanzaremos a la derecha
-                spawnPosRay = transform.position - new Vector3(capsuleCollider.size.x / 2, capsuleCollider.size.y / 2) + posOffset;
-                hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange, floorLayer);
+                spawnPosRay = transform.position - new Vector3(collisionsManager.physicalCollision.size.x / 2, collisionsManager.physicalCollision.size.y / 2) + posOffset;
+                hit = DoRaycast(spawnPosRay, Vector2.down, footballEntityValues.checkFloorRange, footballEntityValues.floorLayer);
 
                 if (hit)
                 {
@@ -134,19 +108,19 @@ public class FootballEntityController : MonoBehaviour
 
     public void EnableHeadColl()
     {
-        headCollider.enabled = true;
+        collisionsManager.headCollision.enabled = true;
     }
     public void DisableHeadColl()
     {
-        headCollider.enabled = false;
+        collisionsManager.headCollision.enabled = false;
     }
     public void EnableFeetColl()
     {
-        feetCollider.enabled = true;
+        collisionsManager.feetCollision.enabled = true;
     }
     public void DisableFeetColl()
     {
-        feetCollider.enabled = false;
+        collisionsManager.feetCollision.enabled = false;
     }
 
 
