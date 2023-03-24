@@ -11,6 +11,8 @@ public class BallController : MonoBehaviour
     [SerializeField]
     private float kickForce;
 
+    private Vector2 startPos;
+
     private Rigidbody2D rb2d;
 
     private void Awake()
@@ -18,7 +20,10 @@ public class BallController : MonoBehaviour
 
         rb2d = GetComponent<Rigidbody2D>();    
     }
-    
+    private void Start()
+    {
+        startPos = transform.position;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Head"))
@@ -44,7 +49,6 @@ public class BallController : MonoBehaviour
             }
             dir = dir.normalized * headButtForce + Vector2.down * downForce;
             rb2d.velocity = dir;
-            Debug.Log("Toca la cabeza");
         }
 
         if (collision.CompareTag("Feet"))
@@ -72,13 +76,26 @@ public class BallController : MonoBehaviour
             }
             dir = dir.normalized * kickForce + Vector2.up * upForce;
             rb2d.velocity = dir;
-            Debug.Log("Toca el pie");
 
         }
 
         if (collision.CompareTag("Goal"))
         {
-            FootballFieldController._instance.RestartPlayers();
+            IngameTimeManager._instance.StartWaitBeforeScore();
+
+            bool rightPlayer;
+            if (collision.transform.position.x > transform.position.x)
+            {
+                rightPlayer = true;
+            }
+            else
+            {
+                rightPlayer = false;
+            }
+            IngameScoreManger._instance.ScoreGoal(rightPlayer);
+
+            transform.position = new Vector3(startPos.x, -200, transform.position.z);
+            rb2d.velocity = Vector2.zero;
         }
 
     }

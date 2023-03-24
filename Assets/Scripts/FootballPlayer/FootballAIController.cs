@@ -40,10 +40,7 @@ public class FootballAIController : FootballEntityController
     {
         float distanceFromBallX = CheckDistanceBallX();
         float distanceFromAIGoal = CheckDistanceFromAIGoal();
-
-        Debug.Log("Distancia en X " + distanceFromBallX);
-        Debug.Log("Distancia de la Porteria " + distanceFromAIGoal);
-
+        
         CheckAIMovement(distanceFromAIGoal);
 
         JumpTimer();
@@ -104,8 +101,6 @@ public class FootballAIController : FootballEntityController
                 dir = 1;
             }
 
-            Debug.Log("Va hacia la pelota la direccion es " + dir);
-
             MoveFootballPlayer(dir);
 
         }
@@ -123,8 +118,6 @@ public class FootballAIController : FootballEntityController
                 dir = 1;
             }
             
-            Debug.Log("Va hacia la porteria la direccion es " + dir);
-
             MoveFootballPlayer(dir);
 
             if (_distanceFromAIGoal <= minDistanceFromAIGoal)

@@ -81,6 +81,17 @@ public class FootballFieldController : MonoBehaviour
     public void RestartPlayers()
     {
         //Desactivar scripts de movimiento
+        StopAllEntities();
+
+        //Empezar contador de 3 segundos
+        IngameTimeManager._instance.StartWaitThreeSecondsToStart();
+
+        //Activar scripts tras acabar el contador
+
+    }
+
+    public void StopAllEntities()
+    {
         playerEntity.enabled = false;
         AIEntity.enabled = false;
 
@@ -100,21 +111,16 @@ public class FootballFieldController : MonoBehaviour
         Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();
         ballRb.velocity = Vector2.zero;
         ballRb.simulated = false;
+    }
 
-        //Empezar contador de 3 segundos
-
-
-        //Activar scripts tras acabar el contador
-
-        playerRb.simulated = true;
-        AIRb.simulated = true;
-        ballRb.simulated = true;
+    public void ContinueAllEntities()
+    {
+        playerEntity.GetComponent<Rigidbody2D>().simulated = true;
+        AIEntity.GetComponent<Rigidbody2D>().simulated = true;
+        ball.GetComponent<Rigidbody2D>().simulated = true;
 
         playerEntity.enabled = true;
         AIEntity.enabled = true;
-
     }
-
-
 
 }
