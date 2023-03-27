@@ -71,7 +71,7 @@ public class IngameTimeManager : MonoBehaviour
     public void StartWaitBeforeScore()
     {
         waitingBeforeScore = true;
-        timeWaited = 2;
+        timeWaited = 1;
         canPassTime = false;
     }
 
