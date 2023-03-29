@@ -1,13 +1,5 @@
 {
   "dependencies": {
-    "com.lootlocker.lootlockersdk": {
-      "version": "file:C:/Users/Marc/Desktop/unity-sdk-main",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.0.2"
-      }
-    },
     "com.unity.2d.animation": {
       "version": "8.0.5",
       "depth": 1,
@@ -159,7 +151,7 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.0.2",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
