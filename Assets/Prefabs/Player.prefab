@@ -36,7 +36,7 @@ Transform:
   - {fileID: 3572682156660462215}
   - {fileID: 3572682157473829434}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &3572682156298726391
 Rigidbody2D:
@@ -110,6 +110,7 @@ MonoBehaviour:
   physicalCollision: {fileID: 3572682156298726390}
   headCollision: {fileID: 3572682157000660457}
   feetCollision: {fileID: 3572682157473829435}
+  headSR: {fileID: 3572682157000660456}
 --- !u!1 &3572682156660462214
 GameObject:
   m_ObjectHideFlags: 0

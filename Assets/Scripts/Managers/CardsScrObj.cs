@@ -7,5 +7,8 @@ using UnityEngine;
 public class CardsScrObj : ScriptableObject
 {
     public bool obtainedCard;
+    public string cardName;
+    public Sprite cardSprite;
+    public Sprite ingameFaceSprite;
 
 }

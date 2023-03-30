@@ -5,15 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    public void LoadGameScene()
+    public void LoadPlayerSelectorScene()
     {
-        SceneManager.LoadScene("CharacterSelectorScene");
+        SceneManager.LoadScene("PlayerCharacterSelectorScene");
     }
+
+    public void LoadEnemySelectorScene()
+    {
+        SceneManager.LoadScene("EnemyCharacterSelectorScene");
+    }
+
 
     public void LoadCardsScene()
     {
+        SceneManager.LoadScene("CardViewerScene");
     }
-    
+
     public void LoadIngameScene()
     {
         SceneManager.LoadScene("IngameScene");

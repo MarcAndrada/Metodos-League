@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FootballEntityController : MonoBehaviour
 {
+    public enum EtityType { PLAYER, AI };
+    public EtityType type;
 
     public FootballEntityDefaultStats footballEntityValues;
 
@@ -20,6 +22,21 @@ public class FootballEntityController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         collisionsManager = GetComponent<EntityCollisionsManager>();
+    }
+
+    public void Start()
+    {
+        string currentPlayer;
+        if (type == EtityType.PLAYER)
+        {
+            currentPlayer = CurrentCardsController._instance.userPlayerSelected;
+        }
+        else
+        {
+            currentPlayer = CurrentCardsController._instance.enemyPlayerSelected;
+        }
+        collisionsManager.headSR.sprite = CurrentCardsController._instance.GetOneCard(currentPlayer).ingameFaceSprite;
+
     }
 
     protected void MoveFootballPlayer(float _movementDir)

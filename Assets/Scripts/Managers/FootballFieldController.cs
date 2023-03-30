@@ -68,11 +68,14 @@ public class FootballFieldController : MonoBehaviour
 
         playerEntity.footballEntityValues = playerEntityValues;
         playerStartPos = playerEntity.transform.position;
+        playerEntity.type = FootballEntityController.EtityType.PLAYER;
+        playerEntity.Start();
 
         AIEntity.footballEntityValues = AIEntityValues;
         AIEntity.ball = ball;
         AIStartPos = AIEntity.transform.position;
-        
+        AIEntity.type = FootballEntityController.EtityType.AI;
+        AIEntity.Start();
 
         RestartPlayers();
 

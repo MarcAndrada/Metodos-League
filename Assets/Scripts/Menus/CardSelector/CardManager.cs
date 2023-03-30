@@ -5,10 +5,15 @@ using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
+    public enum UserType { PLAYER, ENEMY};
+    public UserType userType = UserType.PLAYER;
 
     [SerializeField]
-    private GameObject[] cards;
-
+    private GameObject cardPrefab;
+    [Space]
+    [SerializeField]
+    private List<GameObject> cards;
+    
     [SerializeField]
     private float xCardOffset;
     [SerializeField]
@@ -23,6 +28,22 @@ public class CardManager : MonoBehaviour
     private Vector2 starterSize;
     private Vector3 startPos;
 
+
+    private void Awake()
+    {
+
+        foreach (var item in CurrentCardsController._instance.GetOwnedCards())
+        {
+            if (userType == UserType.PLAYER && item.obtainedCard ||
+                userType == UserType.ENEMY && item.name != CurrentCardsController._instance.userPlayerSelected)
+            {
+                cards.Add(Instantiate(cardPrefab));
+                cards[cards.Count - 1].GetComponentInChildren<SpriteRenderer>().sprite = item.cardSprite;
+                cards[cards.Count - 1].name = item.cardName;
+            }
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -40,23 +61,22 @@ public class CardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             currentCardIndex++;
-            currentCardIndex %= cards.Length;
+            currentCardIndex %= cards.Count;
             RecursiveMoveCards();
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             currentCardIndex--;
-            currentCardIndex %= cards.Length;
+            currentCardIndex %= cards.Count;
             if (currentCardIndex < 0)
             {
-                currentCardIndex = cards.Length - 1;
+                currentCardIndex = cards.Count - 1;
             }
             RecursiveMoveCards();
 
         }
 
     }
-
 
     private void RecursiveMoveCards()
     {
@@ -79,12 +99,26 @@ public class CardManager : MonoBehaviour
     {
         cards[_cardIDToCheck].transform.position = startPos + new Vector3(_cardsXOffset * _cardsPassed, 0, zCardOffset * _cardsPassed);
         cards[_cardIDToCheck].transform.localScale = _cardSize;
-        if (_cardIDToCheck != cards.Length - 1)
+        if (_cardIDToCheck != cards.Count - 1)
         {
             RecursiveMoveCardsRight(++_cardIDToCheck, ++_cardsPassed, _cardSize / cardSizeOffset, _cardsXOffset / cardDistanceReduction);
         }
 
 
     }
+
+
+    public void CurrentCardSelected()
+    {
+        if (userType == UserType.PLAYER)
+        {
+            CurrentCardsController._instance.userPlayerSelected = cards[currentCardIndex].name;
+        }
+        else
+        {
+            CurrentCardsController._instance.enemyPlayerSelected = cards[currentCardIndex].name;
+        }
+    }
+
 
 }

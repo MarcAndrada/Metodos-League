@@ -27,7 +27,6 @@ public class FootballAIController : FootballEntityController
     private bool canDoAction = true;
     private float timeToWaitAction = 1;
     private float timeWaitedAction = 0;
-    
 
 
     // Update is called once per frame
