@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14392e5a3142b2147be2a21e8c8449d4, type: 3}
   m_Name: Xia
   m_EditorClassIdentifier: 
-  obtainedCard: 1
-  cardName: 'Xia '
+  obtainedCard: 0
+  cardName: Xia
   cardSprite: {fileID: 21300000, guid: c8ac2868283a80347b0e00b40e9fb2f9, type: 3}
   ingameFaceSprite: {fileID: 21300000, guid: c8ac2868283a80347b0e00b40e9fb2f9, type: 3}
