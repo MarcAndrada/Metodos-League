@@ -66,10 +66,22 @@ public class CurrentCardsController : MonoBehaviour
         return result;
 
     }
+    public List<CardsScrObj> GetAllCards()
+    {
+        List<CardsScrObj> result = new List<CardsScrObj>();
+
+        foreach (string item in cardsIDs)
+        {
+            result.Add(cardsValues[item]);
+
+        }
+
+        return result;
+    }
+
     public CardsScrObj GetOneCard(string _cardID)
     {
         return cardsValues[_cardID];
-
     }
 
 

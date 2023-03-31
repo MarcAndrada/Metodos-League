@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class IngameTimeManager : MonoBehaviour
@@ -11,8 +12,11 @@ public class IngameTimeManager : MonoBehaviour
     private TextMeshProUGUI timeText;
     [SerializeField]
     private TextMeshProUGUI startTimeText;
+    [SerializeField]
+    private TextMeshProUGUI victoryText;
 
-    private float time = 45;
+    private float time = 5
+        ;
 
     private float timeWaited;
 
@@ -59,13 +63,40 @@ public class IngameTimeManager : MonoBehaviour
                 prefix = "0";
             }
             timeText.text = prefix + time.ToString("f0");
+            if (time <= 0)
+            {
+                EndGame();
+            }
         }
         
     }
 
     private void EndGame()
     {
+        timeText.text = "00";
+        waitingBeforeScore = false;
+        waitingBeforeStart = false;
+        if (victoryText.text == "")
+        {
 
+            if (IngameScoreManger._instance.player1Score > IngameScoreManger._instance.player2Score)
+            {
+                victoryText.text = "¡" + CurrentCardsController._instance.userPlayerSelected + " ha ganado!";
+            }
+            else if (IngameScoreManger._instance.player1Score < IngameScoreManger._instance.player2Score)
+            {
+                victoryText.text = "¡" + CurrentCardsController._instance.enemyPlayerSelected + " ha ganado!";
+            }
+            else
+            {
+                victoryText.text = "¡ EMPATE!";
+            }
+        }
+
+        if (time <= -3)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     public void StartWaitBeforeScore()

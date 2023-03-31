@@ -13,8 +13,10 @@ public class IngameScoreManger : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI player2ScoreText;
 
-    private int player1Score;
-    private int player2Score;
+    [HideInInspector]
+    public int player1Score;
+    [HideInInspector]
+    public int player2Score;
 
 
     private void Awake()

@@ -32,7 +32,7 @@ public class CardManager : MonoBehaviour
     private void Awake()
     {
 
-        foreach (var item in CurrentCardsController._instance.GetOwnedCards())
+        foreach (var item in CurrentCardsController._instance.GetAllCards())
         {
             if (userType == UserType.PLAYER && item.obtainedCard ||
                 userType == UserType.ENEMY && item.name != CurrentCardsController._instance.userPlayerSelected)
