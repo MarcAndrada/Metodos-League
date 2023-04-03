@@ -397,7 +397,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.000692476}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &310010815
@@ -572,6 +572,7 @@ GameObject:
   - component: {fileID: 624431595}
   - component: {fileID: 624431594}
   - component: {fileID: 624431593}
+  - component: {fileID: 624431597}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -663,6 +664,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &624431597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624431592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 280bccd7d1e1f2f4185155382b0dbae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 808942132658364993, guid: b00360559075193458018922bd4759c9, type: 3}
+  lockedCardPrefab: {fileID: 0}
+  cardXOffset: 0
+  cardYOffset: 0
 --- !u!1 &794445599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,7 +1325,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 607512709}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999769
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
