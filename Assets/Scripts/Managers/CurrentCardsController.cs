@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 public class CurrentCardsController : MonoBehaviour
 {
@@ -82,6 +80,27 @@ public class CurrentCardsController : MonoBehaviour
     public CardsScrObj GetOneCard(string _cardID)
     {
         return cardsValues[_cardID];
+    }
+    public CardsScrObj GetOneCardByID(int _id)
+    {
+        return cardsValues[cardsIDs[_id]];
+
+    }
+    public int GetAllCardsLenght()
+    {
+        return cardsValues.Count;
+    }
+    public bool AllCardsObtained()
+    {
+        foreach (string item in cardsIDs)
+        {
+            if (cardsValues[item].obtainedCard)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 

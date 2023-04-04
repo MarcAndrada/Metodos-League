@@ -15,7 +15,7 @@ public class IngameTimeManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI victoryText;
 
-    private float time = 45;
+    private float time = 10;
 
     private float timeWaited;
 
@@ -81,21 +81,30 @@ public class IngameTimeManager : MonoBehaviour
             if (IngameScoreManger._instance.player1Score > IngameScoreManger._instance.player2Score)
             {
                 victoryText.text = "¡" + CurrentCardsController._instance.userPlayerSelected + " ha ganado!";
-            }
-            else if (IngameScoreManger._instance.player1Score < IngameScoreManger._instance.player2Score)
-            {
-                victoryText.text = "¡" + CurrentCardsController._instance.enemyPlayerSelected + " ha ganado!";
+                if (time <= -3)
+                {
+                    SceneManager.LoadScene("VictoryScene");
+                }
             }
             else
             {
-                victoryText.text = "¡ EMPATE!";
+                if (IngameScoreManger._instance.player1Score < IngameScoreManger._instance.player2Score)
+                {
+                    victoryText.text = "¡" + CurrentCardsController._instance.enemyPlayerSelected + " ha ganado!";
+                }
+                else
+                {
+                    victoryText.text = "¡ EMPATE!";
+                }
+
+                if (time <= -3)
+                {
+                    SceneManager.LoadScene("MainMenu");
+                }
             }
         }
 
-        if (time <= -3)
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
+        
     }
 
     public void StartWaitBeforeScore()

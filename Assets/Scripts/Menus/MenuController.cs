@@ -25,4 +25,9 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene("IngameScene");
     }
+
+    public void GoMainMenuScene()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

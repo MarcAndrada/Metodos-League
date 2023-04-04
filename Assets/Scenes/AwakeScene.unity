@@ -168,13 +168,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardsIDs:
-  - Jon
-  - Xia
   - Enrique
+  - Xia
+  - Jon
+  - Xia 1
   - Enrique 1
+  - Jon 1
   - Enrique 2
+  - Jon 4
   - Enrique 3
+  - Jon 3
   - Enrique 4
+  - Xia 3
+  - Jon 5
   - Enrique 5
+  - Jon 2
+  - Xia 2
+  - Jon 6
   userPlayerSelected: 
   enemyPlayerSelected: 
