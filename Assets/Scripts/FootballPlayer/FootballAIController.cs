@@ -11,7 +11,9 @@ public class FootballAIController : FootballEntityController
     [HideInInspector]
     public GameObject ball;
     [SerializeField]
-    private float minDistanceFromBallY = 0.8f;
+    private float minDistanceFromBallYtoJump = 0.8f;
+    [SerializeField]
+    private float minDistanceFromBallXtoJump = 1.5f;
     [SerializeField]
     private float minDistanceToAttack = 0.7f;
     [SerializeField]
@@ -43,7 +45,7 @@ public class FootballAIController : FootballEntityController
         CheckAIMovement(distanceFromAIGoal);
 
         JumpTimer();
-        float distanceFromBallY = CheckJump();
+        float distanceFromBallY = CheckJump(distanceFromBallX);
 
         WaitActionCD();
         CheckIfDoAction(distanceFromBallX, distanceFromBallY);
@@ -140,11 +142,11 @@ public class FootballAIController : FootballEntityController
         }
     }
 
-    private float CheckJump()
+    private float CheckJump(float _distanceFromBallX)
     {
         float distanceFromBallY = ball.transform.position.y - transform.position.y;
         //Comprobar la distancia en Y de la pelota para saber si tiene que saltar
-        if (distanceFromBallY > minDistanceFromBallY && !isJumping)
+        if (distanceFromBallY > minDistanceFromBallYtoJump && _distanceFromBallX < minDistanceFromBallXtoJump && !isJumping)
         {
             Jump();
             isJumping = true;

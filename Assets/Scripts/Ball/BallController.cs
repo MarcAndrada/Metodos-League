@@ -28,12 +28,7 @@ public class BallController : MonoBehaviour
     {
         if (collision.CompareTag("Head"))
         {
-            Vector2 dir = transform.position - collision.transform.parent.position;
-            if (dir.normalized.x < 0.2 && dir.normalized.x > -0.2)
-            {
-                dir = dir.normalized;
-                dir.x = collision.transform.right.x * 0.3f;
-            }
+            Vector2 dir = collision.transform.right;
             float downForce;
             if (dir.normalized.y < -0.3)
             {
@@ -53,13 +48,7 @@ public class BallController : MonoBehaviour
 
         if (collision.CompareTag("Feet"))
         {
-            Vector2 dir = transform.position - collision.transform.parent.position;
-
-            if (dir.normalized.x < 0.2 && dir.normalized.x > -0.2)
-            {
-                dir = dir.normalized;
-                dir.x = collision.transform.right.x * 0.3f;
-            }
+            Vector2 dir = collision.transform.parent.right;
 
             float upForce;
             if (dir.normalized.y > 0.3)

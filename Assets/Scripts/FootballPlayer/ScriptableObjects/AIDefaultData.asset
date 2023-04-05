@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AIDefaultData
   m_EditorClassIdentifier: 
   speed: 3000
-  maxSpeed: 5.5
+  maxSpeed: 6
   jumpForce: 13
   checkFloorRange: 0.25
   floorLayer:
