@@ -13,7 +13,7 @@ public class FootballAIController : FootballEntityController
     [SerializeField]
     private float minDistanceFromBallYtoJump = 0.8f;
     [SerializeField]
-    private float minDistanceFromBallXtoJump = 1.5f;
+    private float minDistanceFromBallXtoJump = 3f;
     [SerializeField]
     private float minDistanceToAttack = 0.7f;
     [SerializeField]
@@ -23,11 +23,11 @@ public class FootballAIController : FootballEntityController
     private bool returningToAIGoal = false;
 
     private bool isJumping = false;
-    private float timeToWaitJump = 1.5f;
+    private readonly float timeToWaitJump = 1.5f;
     private float timeWaitedJump = 0;
 
     private bool canDoAction = true;
-    private float timeToWaitAction = 1;
+    private readonly float timeToWaitAction = 1;
     private float timeWaitedAction = 0;
 
 

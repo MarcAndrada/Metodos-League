@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obtainedCard: 0
   cardName: Xia
-  cardSprite: {fileID: 21300000, guid: c8ac2868283a80347b0e00b40e9fb2f9, type: 3}
+  cardSprite: {fileID: 21300000, guid: daed5b84dba06fc489eae5e1cf86d6b0, type: 3}
   ingameFaceSprite: {fileID: 21300000, guid: c8ac2868283a80347b0e00b40e9fb2f9, type: 3}

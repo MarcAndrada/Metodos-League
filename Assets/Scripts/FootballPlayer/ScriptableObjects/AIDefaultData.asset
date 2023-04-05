@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f0d32e9f96aa0f418c324c251f6b4f4, type: 3}
   m_Name: AIDefaultData
   m_EditorClassIdentifier: 
-  speed: 3000
-  maxSpeed: 6
+  speed: 2000
+  maxSpeed: 7
   jumpForce: 13
   checkFloorRange: 0.25
   floorLayer:
