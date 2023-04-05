@@ -15,7 +15,7 @@ public class IngameTimeManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI victoryText;
 
-    private float time = 10;
+    private float time = 45;
 
     private float timeWaited;
 
@@ -23,6 +23,8 @@ public class IngameTimeManager : MonoBehaviour
 
     private bool waitingBeforeScore = false;
     private bool waitingBeforeStart = false;
+    [HideInInspector]
+    public bool endGame = false;
 
 
     // Start is called before the first frame update
@@ -75,36 +77,33 @@ public class IngameTimeManager : MonoBehaviour
         timeText.text = "00";
         waitingBeforeScore = false;
         waitingBeforeStart = false;
-        if (victoryText.text == "")
+        endGame = true;
+        if (IngameScoreManger._instance.player1Score > IngameScoreManger._instance.player2Score)
         {
-
-            if (IngameScoreManger._instance.player1Score > IngameScoreManger._instance.player2Score)
+            victoryText.text = "¡" + CurrentCardsController._instance.userPlayerSelected + " ha ganado!";
+            if (time <= -3)
             {
-                victoryText.text = "¡" + CurrentCardsController._instance.userPlayerSelected + " ha ganado!";
-                if (time <= -3)
-                {
-                    SceneManager.LoadScene("VictoryScene");
-                }
+                SceneManager.LoadScene("VictoryScene");
+            }
+        }
+        else
+        {
+            if (IngameScoreManger._instance.player1Score < IngameScoreManger._instance.player2Score)
+            {
+                victoryText.text = "¡" + CurrentCardsController._instance.enemyPlayerSelected + " ha ganado!";
             }
             else
             {
-                if (IngameScoreManger._instance.player1Score < IngameScoreManger._instance.player2Score)
-                {
-                    victoryText.text = "¡" + CurrentCardsController._instance.enemyPlayerSelected + " ha ganado!";
-                }
-                else
-                {
-                    victoryText.text = "¡ EMPATE!";
-                }
+                victoryText.text = "¡ EMPATE!";
+            }
 
-                if (time <= -3)
-                {
-                    SceneManager.LoadScene("MainMenu");
-                }
+            if (time <= -3)
+            {
+                SceneManager.LoadScene("MainMenu");
             }
         }
 
-        
+
     }
 
     public void StartWaitBeforeScore()

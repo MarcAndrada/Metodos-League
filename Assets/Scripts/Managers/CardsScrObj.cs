@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -10,5 +11,32 @@ public class CardsScrObj : ScriptableObject
     public string cardName;
     public Sprite cardSprite;
     public Sprite ingameFaceSprite;
+
+    public void Initialize()
+    {
+        if (PlayerPrefs.HasKey(cardName))
+        {
+            if (PlayerPrefs.GetString(cardName) == "True")
+            {
+                obtainedCard = true;
+            }
+            else
+            {
+                obtainedCard = false;
+            }
+        }
+        else
+        {
+            ChangeObtainedValue(obtainedCard);
+        }
+    }
+
+
+    public void ChangeObtainedValue(bool _obtained)
+    {
+        obtainedCard = _obtained;
+        PlayerPrefs.SetString(cardName, obtainedCard.ToString());
+        PlayerPrefs.Save();
+    }
 
 }

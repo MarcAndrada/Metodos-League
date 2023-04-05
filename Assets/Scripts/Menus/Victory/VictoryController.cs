@@ -66,7 +66,7 @@ public class VictoryController : MonoBehaviour
         button.gameObject.SetActive(true);
 
         animator.SetTrigger("Open");
-        generatedCard.obtainedCard = true;
+        generatedCard.ChangeObtainedValue(true);
 
     }
 

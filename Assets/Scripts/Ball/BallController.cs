@@ -83,7 +83,7 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Goal"))
+        if(collision.gameObject.CompareTag("Goal") && !IngameTimeManager._instance.endGame)
         {
             IngameTimeManager._instance.StartWaitBeforeScore();
 
@@ -100,6 +100,7 @@ public class BallController : MonoBehaviour
 
             transform.position = new Vector3(startPos.x, -200, transform.position.z);
             rb2d.velocity = Vector2.zero;
+
         }
     }
 }

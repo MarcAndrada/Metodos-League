@@ -45,6 +45,7 @@ public class CurrentCardsController : MonoBehaviour
         foreach (string item in cardsIDs)
         {
             cardsValues.Add(item, Resources.Load("Cards/" + item) as CardsScrObj);
+            cardsValues[item].Initialize();
         }
     }
 
