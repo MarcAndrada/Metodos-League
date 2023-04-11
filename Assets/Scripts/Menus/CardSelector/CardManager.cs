@@ -91,11 +91,11 @@ public class CardManager : MonoBehaviour
 
     private void ReadInputs()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetAxisRaw("Mouse ScrollWheel") > 0)
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetAxisRaw("Mouse ScrollWheel") < 0)
         {
             MoveCardRight();
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetAxisRaw("Mouse ScrollWheel") < 0)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetAxisRaw("Mouse ScrollWheel") > 0)
         {
             MoveCardLeft();
         }

@@ -11,6 +11,9 @@ public class BallController : MonoBehaviour
     [SerializeField]
     private float kickForce;
 
+    [SerializeField]
+    private float rotationSpeed;
+
     private Vector2 startPos;
 
     private Rigidbody2D rb2d;
@@ -24,24 +27,21 @@ public class BallController : MonoBehaviour
     {
         startPos = transform.position;
     }
+
+    private void FixedUpdate()
+    {
+        rb2d.angularVelocity = -rb2d.velocity.x * rotationSpeed;
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Head"))
         {
             Vector2 dir = collision.transform.right;
-            float downForce;
-            if (dir.normalized.y < -0.3)
-            {
-                downForce = headButtForce / 4;
-            }
-            else if (dir.normalized.y < - 0.1)
-            {
-                downForce = headButtForce / 2;
-            }
-            else
-            {
-                downForce = headButtForce;
-            }
+
+
+
+            float downForce = headButtForce / 2;
             dir = dir.normalized * headButtForce + Vector2.down * downForce;
             rb2d.velocity = dir;
         }
@@ -50,19 +50,7 @@ public class BallController : MonoBehaviour
         {
             Vector2 dir = collision.transform.parent.right;
 
-            float upForce;
-            if (dir.normalized.y > 0.3)
-            {
-                upForce = kickForce / 4;
-            }
-            else if (dir.normalized.y > 0.1)
-            {
-                upForce = kickForce / 2;
-            }
-            else
-            {
-                upForce = kickForce;
-            }
+            float upForce = kickForce / 2;
             dir = dir.normalized * kickForce + Vector2.up * upForce;
             rb2d.velocity = dir;
 
