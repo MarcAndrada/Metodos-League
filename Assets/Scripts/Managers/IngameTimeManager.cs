@@ -15,7 +15,7 @@ public class IngameTimeManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI victoryText;
 
-    private float time = 45;
+    public float time { get; private set ;}
 
     private float timeWaited;
 

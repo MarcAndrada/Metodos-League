@@ -22,6 +22,8 @@ public class FootballAIController : FootballEntityController
     [SerializeField]
     private bool returningToAIGoal = false;
 
+    private float moveDir = 0;
+
     private bool isJumping = false;
     private readonly float timeToWaitJump = 1.3f;
     private float timeWaitedJump = 0;
@@ -35,6 +37,11 @@ public class FootballAIController : FootballEntityController
     void Update()
     {
         AIBehaviour();
+    }
+
+    private void FixedUpdate()
+    {
+        MoveFootballPlayer(moveDir);
     }
 
     private void AIBehaviour()
@@ -91,36 +98,31 @@ public class FootballAIController : FootballEntityController
         //Si la pelota esta atras ir hacia la porteria
         if (_distanceFromAIGoal <= maxDistanceFromAIGoal && !returningToAIGoal)
         {
-            float dir;
             //Ir hacia la pelota
             if (transform.position.x - ball.transform.position.x > 0)
             {
-                dir = -1;
+                moveDir = -1;
             }
             else
             {
-                dir = 1;
+                moveDir = 1;
             }
-
-            MoveFootballPlayer(dir);
+            
 
         }
         else if (_distanceFromAIGoal > maxDistanceFromAIGoal || returningToAIGoal)
         {
             returningToAIGoal = true;
-            float dir;
             //Ir hacia la porteria
             if (transform.position.x - goalAI.transform.position.x > 0)
             {
-                dir = -1;
+                moveDir = -1;
             }
             else
             {
-                dir = 1;
+                moveDir = 1;
             }
             
-            MoveFootballPlayer(dir);
-
             if (_distanceFromAIGoal <= minDistanceFromAIGoal)
             {
                 returningToAIGoal = false;
