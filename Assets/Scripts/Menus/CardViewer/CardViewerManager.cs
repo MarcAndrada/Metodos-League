@@ -86,7 +86,7 @@ public class CardViewerManager : MonoBehaviour
                     cards[i][j].name = allCards[createdCards].cardName;
                     CardViewController cardView = cards[i][j].GetComponent<CardViewController>();
                     cardView.cardSR.sprite = allCards[createdCards].cardSprite;
-                    cardView.lockSR.enabled = !allCards[createdCards].obtainedCard;
+                    cardView.lockObj.SetActive(!allCards[createdCards].obtainedCard);
                     createdCards++;
 
                     int cardsLength = cards[i].Count - 1;

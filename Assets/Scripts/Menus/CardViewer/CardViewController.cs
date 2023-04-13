@@ -7,6 +7,6 @@ public class CardViewController : MonoBehaviour
     [SerializeField]
     public SpriteRenderer cardSR;
     [SerializeField]
-    public SpriteRenderer lockSR;
+    public GameObject lockObj;
     
 }
