@@ -6,6 +6,9 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class PowerUpController : MonoBehaviour
 {
+    public static PowerUpController _instance;
+
+
     public enum PowerUps { NONE = 0, BULLET_TIME, POWER_SHOT, INVERTED_INPUT, SPRING_FEET, ZERO_GRAVITY };
     public PowerUps currentPowerUp = PowerUps.NONE;
     public PowerUps lastPowerUp = PowerUps.NONE;
@@ -15,21 +18,49 @@ public class PowerUpController : MonoBehaviour
     private float startTime = 0;
 
     [Header("SlowDown Power Up"), SerializeField]
-    private float slowdownValue;
+    private float slowdownMaxValue;
+    [SerializeField]
+    private float slowdownMinValue;
+    [SerializeField]
+    private float changeRythmSpeed;
+
+    private float currentSlowdown;
 
     [Header("Zero Gravity Power Up"), SerializeField]
     private float zeroGravityValue;
     private float starterGravity;
 
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            if (_instance != this)
+            {
+                Destroy(_instance.gameObject);
+            }
+        }
+
+        _instance = this;
+
+    }
+
     private void Start()
     {
         startTime = IngameTimeManager._instance.time;
+        currentSlowdown = slowdownMaxValue;
         starterGravity = Physics2D.gravity.y;
     }
 
     private void Update()
     {
         CheckIfCanApplyPowerUp();
+
+        PowerUpActions();
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ChangePowerUp(PowerUps.BULLET_TIME);
+        }
     }
 
 
@@ -62,15 +93,18 @@ public class PowerUpController : MonoBehaviour
 
     private void ChangePowerUp(PowerUps _nextPowerUp)
     {
-        lastPowerUp = currentPowerUp;
         currentPowerUp = _nextPowerUp;
+        lastPowerUp = _nextPowerUp;
         switch (_nextPowerUp)
         {
             case PowerUps.BULLET_TIME:
                 //relentizar el tiempo
+                Time.timeScale = currentSlowdown;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
                 break;
             case PowerUps.POWER_SHOT:
                 //Cambiar algo en la bola para que al tocar con un collider salga disparada y poner particulas en los pies de los Jugadores 
+
                 break;
             case PowerUps.INVERTED_INPUT:
                 //Cambiar el input de los Jugadores
@@ -88,12 +122,43 @@ public class PowerUpController : MonoBehaviour
         }
     }
 
+    private void PowerUpActions()
+    {
+        switch (currentPowerUp)
+        {
+            case PowerUps.BULLET_TIME:
+                currentSlowdown += changeRythmSpeed * Time.deltaTime;
+
+                if (currentSlowdown >= slowdownMaxValue || currentSlowdown <= slowdownMinValue)
+                {
+                    changeRythmSpeed *= -1;
+
+                    currentSlowdown = Mathf.Clamp(currentSlowdown, slowdownMinValue, slowdownMaxValue);
+                }
+
+                Time.timeScale = currentSlowdown;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
+                break;
+            case PowerUps.POWER_SHOT:
+                break;
+            case PowerUps.INVERTED_INPUT:
+                break;
+            case PowerUps.SPRING_FEET:
+                break;
+            case PowerUps.ZERO_GRAVITY:
+                break;
+            default:
+                break;
+        }
+    }
 
     public void ResetPowerUps()
     {
-        lastPowerUp = currentPowerUp;
         currentPowerUp = PowerUps.NONE;
         startTime = IngameTimeManager._instance.time;
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
         Physics2D.gravity = new Vector2(0, starterGravity);
     }
 }

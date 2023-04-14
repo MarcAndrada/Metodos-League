@@ -10,6 +10,8 @@ public class BallController : MonoBehaviour
     private float headButtForce;
     [SerializeField]
     private float kickForce;
+    [SerializeField]
+    private float superKickForce;
 
     [SerializeField]
     private float rotationSpeed;
@@ -21,7 +23,7 @@ public class BallController : MonoBehaviour
     private void Awake()
     {
 
-        rb2d = GetComponent<Rigidbody2D>();    
+        rb2d = GetComponent<Rigidbody2D>();
     }
     private void Start()
     {
@@ -32,7 +34,7 @@ public class BallController : MonoBehaviour
     {
         rb2d.angularVelocity = -rb2d.velocity.x * rotationSpeed;
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Head"))
@@ -41,7 +43,7 @@ public class BallController : MonoBehaviour
 
 
 
-            float downForce = headButtForce / 2;
+            float downForce = headButtForce / 3;
             dir = dir.normalized * headButtForce + Vector2.down * downForce;
             rb2d.velocity = dir;
         }
@@ -49,9 +51,21 @@ public class BallController : MonoBehaviour
         if (collision.CompareTag("Feet"))
         {
             Vector2 dir = collision.transform.parent.right;
+            float upForce;
 
-            float upForce = kickForce / 2;
+            if (PowerUpController._instance.currentPowerUp != PowerUpController.PowerUps.POWER_SHOT)
+            {
+                upForce = kickForce / 2;
+            }
+            else
+            {
+                dir *= superKickForce;
+                upForce = kickForce / 5;
+                //activar las particulas
+            }
+
             dir = dir.normalized * kickForce + Vector2.up * upForce;
+
             rb2d.velocity = dir;
 
         }
@@ -60,7 +74,7 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Goal") && !IngameTimeManager._instance.endGame)
+        if (collision.gameObject.CompareTag("Goal") && !IngameTimeManager._instance.endGame)
         {
             IngameTimeManager._instance.StartWaitBeforeScore();
 
@@ -78,6 +92,8 @@ public class BallController : MonoBehaviour
             transform.position = new Vector3(startPos.x, -200, transform.position.z);
             rb2d.velocity = Vector2.zero;
 
+            PowerUpController._instance.ResetPowerUps();
+            //Desactivar las particulas
         }
     }
 }

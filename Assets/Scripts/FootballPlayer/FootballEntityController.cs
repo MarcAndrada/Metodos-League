@@ -15,13 +15,13 @@ public class FootballEntityController : MonoBehaviour
 
     private Rigidbody2D rb2d;
     private Animator animator;
-    protected EntityCollisionsManager collisionsManager;
+    protected EntityComponentManager collisionsManager;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        collisionsManager = GetComponent<EntityCollisionsManager>();
+        collisionsManager = GetComponent<EntityComponentManager>();
     }
 
     public void Start()

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 66343606}
   - component: {fileID: 66343605}
   - component: {fileID: 66343604}
+  - component: {fileID: 66343607}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,6 +208,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &66343607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66343603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &236563700
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,6 +858,7 @@ GameObject:
   - component: {fileID: 1248424328}
   - component: {fileID: 1248424326}
   - component: {fileID: 1248424329}
+  - component: {fileID: 1248424330}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -898,6 +933,25 @@ MonoBehaviour:
   player2ScoreText: {fileID: 1579000238}
   player1Score: 0
   player2Score: 0
+--- !u!114 &1248424330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248424325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0ae63e511ce5914ba4033700a46e0ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPowerUp: 0
+  lastPowerUp: 0
+  timeToSpawnPowerUp: 10
+  slowdownMaxValue: 0.85
+  slowdownMinValue: 0.5
+  changeRythmSpeed: 25
+  zeroGravityValue: 6
 --- !u!1 &1358150003
 GameObject:
   m_ObjectHideFlags: 0
