@@ -22,8 +22,7 @@ public class FootballAIController : FootballEntityController
     [SerializeField]
     private bool returningToAIGoal = false;
 
-    private float moveDir = 0;
-
+    float moveDir = 0;
     private bool isJumping = false;
     private readonly float timeToWaitJump = 1.3f;
     private float timeWaitedJump = 0;
@@ -36,6 +35,7 @@ public class FootballAIController : FootballEntityController
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         AIBehaviour();
     }
 
@@ -94,40 +94,99 @@ public class FootballAIController : FootballEntityController
 
     private void CheckAIMovement(float _distanceFromAIGoal) 
     {
-        //Comprobar la distancia en x de la pelota por si tiene que moverse y no esta muy lejos de la porteria ir a por la pelota
-        //Si la pelota esta atras ir hacia la porteria
-        if (_distanceFromAIGoal <= maxDistanceFromAIGoal && !returningToAIGoal)
+        if (PowerUpController._instance.currentPowerUp != PowerUpController.PowerUps.INVERTED_INPUT)
         {
-            //Ir hacia la pelota
-            if (transform.position.x - ball.transform.position.x > 0)
+            //Comprobar la distancia en x de la pelota por si tiene que moverse y no esta muy lejos de la porteria ir a por la pelota
+            //Si la pelota esta atras ir hacia la porteria
+            if (_distanceFromAIGoal <= maxDistanceFromAIGoal && !returningToAIGoal)
             {
-                moveDir = -1;
-            }
-            else
-            {
-                moveDir = 1;
-            }
-            
+                //Ir hacia la pelota
+                if (transform.position.x - ball.transform.position.x > 0)
+                {
+                    moveDir = -1;
+                }
+                else
+                {
+                    moveDir = 1;
+                }
 
+
+            }
+            else if (_distanceFromAIGoal > maxDistanceFromAIGoal || returningToAIGoal)
+            {
+                returningToAIGoal = true;
+                //Ir hacia la porteria
+                if (transform.position.x - goalAI.transform.position.x > 0)
+                {
+                    moveDir = -1;
+                }
+                else
+                {
+                    moveDir = 1;
+                }
+
+                if (_distanceFromAIGoal <= minDistanceFromAIGoal)
+                {
+                    returningToAIGoal = false;
+                }
+            }
         }
-        else if (_distanceFromAIGoal > maxDistanceFromAIGoal || returningToAIGoal)
+        else
         {
-            returningToAIGoal = true;
-            //Ir hacia la porteria
-            if (transform.position.x - goalAI.transform.position.x > 0)
+            if (_distanceFromAIGoal < minDistanceFromAIGoal)
             {
-                moveDir = -1;
-            }
-            else
-            {
-                moveDir = 1;
-            }
-            
-            if (_distanceFromAIGoal <= minDistanceFromAIGoal)
-            {
+                if (transform.position.x - goalAI.transform.position.x > 0)
+                {
+                    moveDir = -1;
+                }
+                else
+                {
+                    moveDir = 1;
+                }
                 returningToAIGoal = false;
             }
+            else if (_distanceFromAIGoal > maxDistanceFromAIGoal)
+            {
+                //Ir hacia la porteria
+                if (transform.position.x - goalAI.transform.position.x > 0)
+                {
+                    moveDir = 1;
+                }
+                else
+                {
+                    moveDir = -1;
+                }
+                returningToAIGoal = true;
+            }
+            else
+            {
+                if (returningToAIGoal)
+                {
+                    if (transform.position.x - goalAI.transform.position.x > 0)
+                    {
+                        moveDir = 1;
+                    }
+                    else
+                    {
+                        moveDir = -1;
+                    }
+                }
+                else
+                {
+                    if (transform.position.x - goalAI.transform.position.x > 0)
+                    {
+                        moveDir = -1;
+                    }
+                    else
+                    {
+                        moveDir = 1;
+                    }
+                }
+               
+            }
         }
+        
+
     }
 
     private void JumpTimer()

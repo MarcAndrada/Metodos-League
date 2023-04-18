@@ -126,4 +126,15 @@ public class FootballFieldController : MonoBehaviour
         AIEntity.enabled = true;
     }
 
+
+    public void SetMoveDir(float _moveDir)
+    {
+        playerEntity.dirModifier = _moveDir;
+        AIEntity.dirModifier = _moveDir;
+    }
+    public void SetFireParticles(bool _activated)
+    {
+        playerEntity.GetComponent<EntityComponentManager>().SetFootParticles(_activated);
+        AIEntity.GetComponent<EntityComponentManager>().SetFootParticles(_activated);
+    }
 }

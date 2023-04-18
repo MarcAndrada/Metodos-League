@@ -16,6 +16,9 @@ public class BallController : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
 
+    [SerializeField]
+    private GameObject fireParticles;
+
     private Vector2 startPos;
 
     private Rigidbody2D rb2d;
@@ -62,6 +65,7 @@ public class BallController : MonoBehaviour
                 dir *= superKickForce;
                 upForce = kickForce / 5;
                 //activar las particulas
+                fireParticles.SetActive(true);
             }
 
             dir = dir.normalized * kickForce + Vector2.up * upForce;
@@ -94,6 +98,9 @@ public class BallController : MonoBehaviour
 
             PowerUpController._instance.ResetPowerUps();
             //Desactivar las particulas
+           
+
         }
+        fireParticles.SetActive(false);
     }
 }

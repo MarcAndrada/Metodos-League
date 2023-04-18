@@ -10,6 +10,7 @@ public class PlayerFootballController : FootballEntityController
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         movementInput = Input.GetAxisRaw("Horizontal");
         MoveFootballPlayer(movementInput);
         if (Input.GetButtonDown("Jump") && canJump)

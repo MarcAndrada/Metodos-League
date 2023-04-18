@@ -9,19 +9,11 @@ public class EntityComponentManager : MonoBehaviour
     public Collider2D feetCollision;
     public SpriteRenderer headSR;
     [SerializeField]
-    private ParticleSystem feetParticles;
+    private GameObject feetParticles;
 
-    public void SetFeetParticles(bool _activated)
+    public void SetFootParticles(bool _activated)
     {
-        if (_activated)
-        {
-            feetParticles.Play();
-        }
-        else
-        {
-            feetParticles.Stop();
-        }
-
+        feetParticles.SetActive(_activated);
 
     }
 }

@@ -9434,7 +9434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8230485149897360703
 Transform:
   m_ObjectHideFlags: 0
@@ -14360,3 +14360,4 @@ MonoBehaviour:
   kickForce: 14
   superKickForce: 25
   rotationSpeed: 50
+  fireParticles: {fileID: 8229065419239817549}

@@ -13,6 +13,9 @@ public class FootballEntityController : MonoBehaviour
     protected bool canJump = true;
     protected bool isGrounded = false;
 
+    [HideInInspector]
+    public float dirModifier = 1;
+
     private Rigidbody2D rb2d;
     private Animator animator;
     protected EntityComponentManager collisionsManager;
@@ -39,9 +42,16 @@ public class FootballEntityController : MonoBehaviour
 
     }
 
+    protected void Update()
+    {
+        if (PowerUpController._instance.currentPowerUp == PowerUpController.PowerUps.SPRING_FEET && isGrounded)
+        {
+            Jump();
+        }
+    }
     protected void MoveFootballPlayer(float _movementDir)
     {
-        rb2d.AddForce(Vector2.right * footballEntityValues.speed * _movementDir * Time.deltaTime, ForceMode2D.Force);
+        rb2d.AddForce(Vector2.right * footballEntityValues.speed * _movementDir * dirModifier * Time.deltaTime, ForceMode2D.Force);
         rb2d.velocity = new Vector2(Mathf.Clamp(rb2d.velocity.x, -footballEntityValues.maxSpeed, footballEntityValues.maxSpeed), rb2d.velocity.y);
 
     }
@@ -50,6 +60,7 @@ public class FootballEntityController : MonoBehaviour
     {
         rb2d.AddForce(Vector2.up * footballEntityValues.jumpForce, ForceMode2D.Impulse);
         canJump = false;
+        isGrounded = false;
     }
 
     protected void Kick()

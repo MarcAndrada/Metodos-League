@@ -951,7 +951,7 @@ MonoBehaviour:
   slowdownMaxValue: 0.85
   slowdownMinValue: 0.5
   changeRythmSpeed: 25
-  zeroGravityValue: 6
+  zeroGravityValue: 2
 --- !u!1 &1358150003
 GameObject:
   m_ObjectHideFlags: 0

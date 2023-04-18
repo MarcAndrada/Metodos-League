@@ -30,6 +30,8 @@ public class PowerUpController : MonoBehaviour
     private float zeroGravityValue;
     private float starterGravity;
 
+    
+
     private void Awake()
     {
         if (_instance != null)
@@ -60,6 +62,21 @@ public class PowerUpController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             ChangePowerUp(PowerUps.BULLET_TIME);
+        }else if (Input.GetKeyDown(KeyCode.O))
+        {
+            ChangePowerUp(PowerUps.SPRING_FEET);
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            ChangePowerUp(PowerUps.POWER_SHOT);
+        }
+        else if (Input.GetKeyDown(KeyCode.J))
+        {
+            ChangePowerUp(PowerUps.ZERO_GRAVITY);
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            ChangePowerUp(PowerUps.INVERTED_INPUT);
         }
     }
 
@@ -104,10 +121,11 @@ public class PowerUpController : MonoBehaviour
                 break;
             case PowerUps.POWER_SHOT:
                 //Cambiar algo en la bola para que al tocar con un collider salga disparada y poner particulas en los pies de los Jugadores 
-
+                FootballFieldController._instance.SetFireParticles(true);
                 break;
             case PowerUps.INVERTED_INPUT:
                 //Cambiar el input de los Jugadores
+                FootballFieldController._instance.SetMoveDir(-1);
                 break;
             case PowerUps.SPRING_FEET:
                 //Actvar algo en los jugadores para que cada vez que toquen el suelo salten
@@ -115,7 +133,7 @@ public class PowerUpController : MonoBehaviour
                 break;
             case PowerUps.ZERO_GRAVITY:
                 //Cambiar la gravedad para que las entidades tengan muy poca gravedad
-                Physics2D.gravity = new Vector2(0, zeroGravityValue);
+                Physics2D.gravity = new Vector2(0, -zeroGravityValue);
                 break;
             default:
                 break;
@@ -159,6 +177,8 @@ public class PowerUpController : MonoBehaviour
         startTime = IngameTimeManager._instance.time;
         Time.timeScale = 1;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        FootballFieldController._instance.SetMoveDir(1);
+        FootballFieldController._instance.SetFireParticles(true);
         Physics2D.gravity = new Vector2(0, starterGravity);
     }
 }
