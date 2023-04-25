@@ -68,7 +68,7 @@ public class BallController : MonoBehaviour
                 fireParticles.SetActive(true);
             }
 
-            dir = dir.normalized * kickForce + Vector2.up * upForce;
+            dir += Vector2.up * upForce;
 
             rb2d.velocity = dir;
 

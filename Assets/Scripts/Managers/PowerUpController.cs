@@ -51,6 +51,8 @@ public class PowerUpController : MonoBehaviour
         startTime = IngameTimeManager._instance.time;
         currentSlowdown = slowdownMaxValue;
         starterGravity = Physics2D.gravity.y;
+        FootballFieldController._instance.SetFireParticles(false);
+
     }
 
     private void Update()
@@ -180,5 +182,7 @@ public class PowerUpController : MonoBehaviour
         FootballFieldController._instance.SetMoveDir(1);
         FootballFieldController._instance.SetFireParticles(true);
         Physics2D.gravity = new Vector2(0, starterGravity);
+        FootballFieldController._instance.SetFireParticles(false);
+
     }
 }

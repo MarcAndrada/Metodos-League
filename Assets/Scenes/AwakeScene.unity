@@ -172,8 +172,11 @@ MonoBehaviour:
   - Xia
   - Jon
   - Xia 1
+  - Xavi
+  - Xavi 1
   - Enrique 1
   - Jon 1
+  - Xavi 3
   - Enrique 2
   - Jon 4
   - Enrique 3
@@ -181,9 +184,9 @@ MonoBehaviour:
   - Enrique 4
   - Xia 3
   - Jon 5
-  - Enrique 5
   - Jon 2
   - Xia 2
   - Jon 6
+  - Xavi 2
   userPlayerSelected: 
   enemyPlayerSelected: 
