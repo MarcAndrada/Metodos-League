@@ -73,6 +73,7 @@ public class BallController : MonoBehaviour
 
             }
 
+            dir += Vector2.up * upForce;
 
             rb2d.velocity = dir;
 

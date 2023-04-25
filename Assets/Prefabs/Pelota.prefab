@@ -14358,7 +14358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headButtForce: 18.5
   kickForce: 14
-  superKickForce: 25
+  superKickForce: 30
   rotationSpeed: 50
   fireParticles:
   - {fileID: 8140146161629525725}
