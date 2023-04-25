@@ -17,7 +17,7 @@ public class BallController : MonoBehaviour
     private float rotationSpeed;
 
     [SerializeField]
-    private GameObject fireParticles;
+    private ParticleSystem[] fireParticles;
 
     private Vector2 startPos;
 
@@ -31,6 +31,8 @@ public class BallController : MonoBehaviour
     private void Start()
     {
         startPos = transform.position;
+        ActivateParticles(false);
+
     }
 
     private void FixedUpdate()
@@ -59,16 +61,18 @@ public class BallController : MonoBehaviour
             if (PowerUpController._instance.currentPowerUp != PowerUpController.PowerUps.POWER_SHOT)
             {
                 upForce = kickForce / 2;
+                dir = dir.normalized * kickForce + Vector2.up * upForce;
+
             }
             else
             {
-                dir *= superKickForce;
-                upForce = kickForce / 5;
+                upForce = superKickForce / 5;
                 //activar las particulas
-                fireParticles.SetActive(true);
+                ActivateParticles(true);
+                dir = dir.normalized * superKickForce + Vector2.up * upForce;
+
             }
 
-            dir = dir.normalized * kickForce + Vector2.up * upForce;
 
             rb2d.velocity = dir;
 
@@ -101,6 +105,22 @@ public class BallController : MonoBehaviour
            
 
         }
-        fireParticles.SetActive(false);
+        ActivateParticles(false);
+    }
+
+
+    private void ActivateParticles(bool _activate) 
+    {
+        foreach (ParticleSystem item in fireParticles)
+        {
+            if (_activate)
+            {
+                item.Play();
+            }
+            else
+            {
+                item.Stop();
+            }
+        }
     }
 }

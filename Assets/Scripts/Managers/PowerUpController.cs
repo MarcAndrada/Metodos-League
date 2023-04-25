@@ -178,7 +178,7 @@ public class PowerUpController : MonoBehaviour
         Time.timeScale = 1;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
         FootballFieldController._instance.SetMoveDir(1);
-        FootballFieldController._instance.SetFireParticles(true);
+        FootballFieldController._instance.SetFireParticles(false);
         Physics2D.gravity = new Vector2(0, starterGravity);
     }
 }
