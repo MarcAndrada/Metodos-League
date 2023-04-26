@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Experimental.GlobalIllumination;
 
 public class PowerUpController : MonoBehaviour
@@ -12,10 +13,22 @@ public class PowerUpController : MonoBehaviour
     public enum PowerUps { NONE = 0, BULLET_TIME, POWER_SHOT, INVERTED_INPUT, SPRING_FEET, ZERO_GRAVITY };
     public PowerUps currentPowerUp = PowerUps.NONE;
     public PowerUps lastPowerUp = PowerUps.NONE;
+    private PowerUps nextPowerUp = PowerUps.NONE;
+
+    [SerializeField]
+    private GameObject uiObj;
+    [SerializeField]
+    private Image powerUpImg;
+    [SerializeField]
+    private Image blackFront;
+    [SerializeField]
+    private Sprite[] powerUpSprites;
 
     [SerializeField]
     private float timeToSpawnPowerUp;
     private float startTime = 0;
+    [SerializeField]
+    private float timeToSeeUI;
 
     [Header("SlowDown Power Up"), SerializeField]
     private float slowdownMaxValue;
@@ -52,7 +65,7 @@ public class PowerUpController : MonoBehaviour
         currentSlowdown = slowdownMaxValue;
         starterGravity = Physics2D.gravity.y;
         FootballFieldController._instance.SetFireParticles(false);
-
+        uiObj.SetActive(false);
     }
 
     private void Update()
@@ -80,6 +93,7 @@ public class PowerUpController : MonoBehaviour
         {
             ChangePowerUp(PowerUps.INVERTED_INPUT);
         }
+
     }
 
 
@@ -89,7 +103,22 @@ public class PowerUpController : MonoBehaviour
         {
             if (startTime - IngameTimeManager._instance.time >= timeToSpawnPowerUp)
             {
-                GenerateRandomPowerUp();
+                blackFront.fillAmount = 0;
+                ChangePowerUp(nextPowerUp);
+            }
+            else if(startTime - IngameTimeManager._instance.time >= timeToSpawnPowerUp - timeToSeeUI)
+            {
+                if (nextPowerUp == PowerUps.NONE)
+                {
+                    GenerateRandomPowerUp();
+                    uiObj.SetActive(true);
+                    powerUpImg.sprite = powerUpSprites[(int)nextPowerUp - 1];
+                    blackFront.fillAmount = 1;
+                }
+                else
+                {
+                    blackFront.fillAmount -= Time.deltaTime / timeToSeeUI; 
+                }
             }
         }
 
@@ -105,7 +134,7 @@ public class PowerUpController : MonoBehaviour
         }
         else
         {
-            ChangePowerUp((PowerUps)randNum);
+            nextPowerUp = (PowerUps)randNum;
         }
 
     }
@@ -139,7 +168,7 @@ public class PowerUpController : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }                           
     }
 
     private void PowerUpActions()
@@ -183,6 +212,8 @@ public class PowerUpController : MonoBehaviour
         FootballFieldController._instance.SetFireParticles(false);
         Physics2D.gravity = new Vector2(0, starterGravity);
         FootballFieldController._instance.SetFireParticles(false);
+        nextPowerUp = PowerUps.NONE;
+        uiObj.SetActive(false);
 
     }
 }
