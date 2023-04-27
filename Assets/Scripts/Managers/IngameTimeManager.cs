@@ -83,6 +83,7 @@ public class IngameTimeManager : MonoBehaviour
             victoryText.text = "¡" + CurrentCardsController._instance.userPlayerSelected + " ha ganado!";
             if (time <= -3)
             {
+                PowerUpController._instance.ResetPowerUps();
                 SceneManager.LoadScene("VictoryScene");
             }
         }
@@ -99,6 +100,7 @@ public class IngameTimeManager : MonoBehaviour
 
             if (time <= -3)
             {
+                PowerUpController._instance.ResetPowerUps();
                 SceneManager.LoadScene("MainMenu");
             }
         }

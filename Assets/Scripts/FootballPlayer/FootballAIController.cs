@@ -11,7 +11,7 @@ public class FootballAIController : FootballEntityController
     [HideInInspector]
     public GameObject ball;
     [SerializeField]
-    private float minDistanceFromBallYtoJump = 0.6f;
+    private float minDistanceFromBallYtoJump = 3f;
     [SerializeField]
     private float minDistanceFromBallXtoJump = 2.3f;
     [SerializeField]
