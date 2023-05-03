@@ -1,0 +1,24 @@
+- Sonidos de focos
+- Sonido celestial
+- Botones de los menus
+	- Hover boton
+ 	- Click boton
+	- Personaje seleccionado
+
+- Ingame
+	- Cronometro (countdown)
+	- Pitido de inicio del partido/ronda
+	- Sonido cuando la pelota choca contra algo (segun la velocidad que suene mas o menos fuerte)
+	- Sonido de cabezazo
+	- Sonido de patada 
+	- Sonido de Salto
+	- Sonido de alguien diciendo goooooool y publico gritando
+	- Voz que diga quien ha ganado
+	- Power Ups 
+		- Voz que anuncie el power up que toca
+		- Reducir el pitch al mixer para el power up del bullet time
+		- Agregar un low filter pass para la grabedad y tal vez reducir el pitch
+		- Para los controles invertidos augmentar el pitch y agregar un efecto en loop como de cinta rallandose (rollo de 		  vuelta atras en el tiempo)
+		- Para el disparo potente augmentar el pitch
+		- Para el efecto de salto constante poner sonido de salto cada vez que se salte y mirar si augmentar le pitch
+	
