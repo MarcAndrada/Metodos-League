@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    
+
     public void LoadPlayerSelectorScene()
     {
         SceneManager.LoadScene("PlayerCharacterSelectorScene");
@@ -30,4 +32,6 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    
 }

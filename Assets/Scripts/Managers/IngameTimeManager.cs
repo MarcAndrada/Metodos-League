@@ -26,6 +26,8 @@ public class IngameTimeManager : MonoBehaviour
     [HideInInspector]
     public bool endGame = false;
 
+    private string lastSecond;
+    private AudioClip timerSound;
 
     // Start is called before the first frame update
     void Awake()
@@ -41,6 +43,8 @@ public class IngameTimeManager : MonoBehaviour
         _instance = this;
 
         startTimeText.text = "";
+
+        timerSound = Resources.Load("Sounds/CountDownLoop") as AudioClip;
 
     }
 
@@ -132,9 +136,11 @@ public class IngameTimeManager : MonoBehaviour
     public void StartWaitThreeSecondsToStart()
     {
         waitingBeforeStart = true;
-        timeWaited = 3;
-        startTimeText.text = "0" + timeWaited.ToString("f0");
+        timeWaited = 4f;
 
+        startTimeText.text = "0" + timeWaited.ToString("f0");
+        lastSecond = timeWaited.ToString("f0");
+        AudioManager._instance.Play2dOneShotSound(timerSound, 0.5f, 0.5f, 1);
     }
 
     private void WaitThreeSecondsToStart()
@@ -143,6 +149,26 @@ public class IngameTimeManager : MonoBehaviour
         {
             timeWaited -= Time.deltaTime;
             startTimeText.text = "0" + timeWaited.ToString("f0");
+            if (lastSecond != timeWaited.ToString("f0"))
+            {
+                Debug.Log((int)timeWaited);
+                switch (timeWaited.ToString("f0"))
+                {
+                    case "0":
+                        AudioManager._instance.Play2dOneShotSound(timerSound, 1.5f, 1.5f, 1);
+                        break;
+                    case "1":
+                        AudioManager._instance.Play2dOneShotSound(timerSound, 1f, 1, 1);
+                        break;
+                    case "2":
+                        AudioManager._instance.Play2dOneShotSound(timerSound, 0.5f, 0.5f, 1);
+                        break;
+                    default:
+                        break;
+                }
+                lastSecond = timeWaited.ToString("f0");
+            }
+           
             if (timeWaited <= 0)
             {
                 startTimeText.text = "";
