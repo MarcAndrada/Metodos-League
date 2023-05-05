@@ -138,9 +138,8 @@ public class IngameTimeManager : MonoBehaviour
         waitingBeforeStart = true;
         timeWaited = 4f;
 
-        startTimeText.text = "0" + timeWaited.ToString("f0");
-        lastSecond = timeWaited.ToString("f0");
-        AudioManager._instance.Play2dOneShotSound(timerSound, 0.5f, 0.5f, 1);
+        startTimeText.text = "03";
+        lastSecond = "4";
     }
 
     private void WaitThreeSecondsToStart()
@@ -148,10 +147,11 @@ public class IngameTimeManager : MonoBehaviour
         if (waitingBeforeStart)
         {
             timeWaited -= Time.deltaTime;
-            startTimeText.text = "0" + timeWaited.ToString("f0");
             if (lastSecond != timeWaited.ToString("f0"))
             {
-                Debug.Log((int)timeWaited);
+                startTimeText.text = "0" + timeWaited.ToString("f0");
+                AudioManager._instance.Play2dOneShotSound(timerSound, 0.5f, 0.5f, 1);
+
                 switch (timeWaited.ToString("f0"))
                 {
                     case "0":
@@ -162,6 +162,9 @@ public class IngameTimeManager : MonoBehaviour
                         break;
                     case "2":
                         AudioManager._instance.Play2dOneShotSound(timerSound, 0.5f, 0.5f, 1);
+                        break;
+                    case "3":
+                        AudioManager._instance.Play2dOneShotSound(timerSound, 0.1f, 0.1f, 1);
                         break;
                     default:
                         break;

@@ -22,10 +22,22 @@ public class BallController : MonoBehaviour
     private Vector2 startPos;
 
     private Rigidbody2D rb2d;
+    private AudioClip floorHitSound;
+    private AudioSource floorAS;
+    private AudioClip playerHitSound;
+    private AudioSource playerAS;
+    private AudioClip kickHitSound;
+    private AudioSource kickAS;
+    private AudioClip headHitSound;
+    private AudioSource headAS;
 
     private void Awake()
     {
-
+        floorHitSound = Resources.Load("Sounds/BallFloorHit") as AudioClip;
+        playerHitSound = Resources.Load("Sounds/BallPlayerHit") as AudioClip;
+        kickHitSound = Resources.Load("Sounds/BallKickHit") as AudioClip;
+        headHitSound = Resources.Load("Sounds/BallHeadHit") as AudioClip;
+        
         rb2d = GetComponent<Rigidbody2D>();
     }
     private void Start()
@@ -51,6 +63,11 @@ public class BallController : MonoBehaviour
             float downForce = headButtForce / 3;
             dir = dir.normalized * headButtForce + Vector2.down * downForce;
             rb2d.velocity = dir;
+            if (CheckSound(headAS, headHitSound))
+            {
+                headAS = AudioManager._instance.Play2dOneShotSound(headHitSound, 0.5f, 1.5f, 0.6f);
+            }
+
         }
 
         if (collision.CompareTag("Feet"))
@@ -62,7 +79,10 @@ public class BallController : MonoBehaviour
             {
                 upForce = kickForce / 2;
                 dir = dir.normalized * kickForce + Vector2.up * upForce;
-
+                if (CheckSound(kickAS, kickHitSound))
+                {
+                    kickAS = AudioManager._instance.Play2dOneShotSound(kickHitSound, 0.5f, 1.5f, 0.6f);
+                }
             }
             else
             {
@@ -70,6 +90,11 @@ public class BallController : MonoBehaviour
                 //activar las particulas
                 ActivateParticles(true);
                 dir = dir.normalized * superKickForce + Vector2.up * upForce;
+                if(CheckSound(kickAS, kickHitSound))
+                {
+                    kickAS = AudioManager._instance.Play2dOneShotSound(kickHitSound, 0.5f, 1.5f, 2);
+                }
+
 
             }
 
@@ -79,6 +104,7 @@ public class BallController : MonoBehaviour
 
         }
 
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -106,6 +132,23 @@ public class BallController : MonoBehaviour
            
 
         }
+
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            if (CheckSound(floorAS, floorHitSound))
+            {
+                floorAS = AudioManager._instance.Play2dOneShotSound(floorHitSound, 0.2f, 1.8f, rb2d.velocity.magnitude / 25);
+
+            }
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (CheckSound(playerAS, playerHitSound))
+            {
+                playerAS = AudioManager._instance.Play2dOneShotSound(playerHitSound, 0.5f, 1.5f, rb2d.velocity.magnitude / 25);
+            }
+        }
+
         ActivateParticles(false);
     }
 
@@ -123,5 +166,14 @@ public class BallController : MonoBehaviour
                 item.Stop();
             }
         }
+    }
+    private bool CheckSound(AudioSource _as, AudioClip _clip)
+    {
+        if (_as == null || _as != null && !_as.isPlaying || _as != null && _as.clip != _clip)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

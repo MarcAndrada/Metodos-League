@@ -20,11 +20,14 @@ public class FootballEntityController : MonoBehaviour
     private Animator animator;
     protected EntityComponentManager collisionsManager;
 
+    private AudioClip jumpSound;
+
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         collisionsManager = GetComponent<EntityComponentManager>();
+        jumpSound = Resources.Load("Sounds/Jump") as AudioClip;
     }
 
     public void Start()
@@ -61,6 +64,7 @@ public class FootballEntityController : MonoBehaviour
         rb2d.AddForce(Vector2.up * footballEntityValues.jumpForce, ForceMode2D.Impulse);
         canJump = false;
         isGrounded = false;
+        AudioManager._instance.Play2dOneShotSound(jumpSound);
     }
 
     protected void Kick()

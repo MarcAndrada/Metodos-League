@@ -221,5 +221,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 6e7c84b4f7da09541a3787dc023d1611, type: 2}
-  total2DAS: 15
+  total2DAS: 8
   actions2dASObj: {fileID: 88924675}

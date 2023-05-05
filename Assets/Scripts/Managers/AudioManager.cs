@@ -82,10 +82,12 @@ public class AudioManager : MonoBehaviour
         actions3dAS[actions3dAS.Count - 1].rolloffMode = AudioRolloffMode.Linear;
     }
 
-    public void Play2dOneShotSound(AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
+    public AudioSource Play2dOneShotSound(AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
     {
         AudioSource _as = GetUnused2dAS();
         PlayOneShotSound(_as, _clip, _minPitch, _maxPitch, _volume);
+
+        return _as;
     }
     public void Play3dOneShotSound(AudioClip _clip, float _radius, Vector2 _pos, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
     {
